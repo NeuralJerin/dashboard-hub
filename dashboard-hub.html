@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T-MART Finance &mdash; Dashboard Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF5900;
+    --orange-light: #ff7a33;
+    --orange-dim: rgba(255,89,0,0.08);
+    --brown: #411517;
+    --off-white: #F4EDE3;
+    --lime: #CFFF00;
+    --white: #FFFFFF;
+    --border: #E8DFD2;
+    --border-strong: #D6CABC;
+    --text: #2D1A1C;
+    --text-muted: #8B6B6E;
+    --green: #2E7D32;
+    --green-bg: rgba(46,125,50,0.08);
+    --shadow: 0 2px 12px rgba(65,21,23,0.06);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .hub-header {
+    padding: 28px 48px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hub-header::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,89,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .page-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: var(--orange-dim);
+    border: 1px solid rgba(255,89,0,0.15);
+    padding: 5px 16px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    color: var(--brown);
+    line-height: 1;
+  }
+  .page-title span { color: var(--orange); }
+
+  /* ── MAIN CONTENT ── */
+  .hub-content {
+    padding: 0 48px 40px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 28px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border-strong);
+  }
+  .section-title.orange { color: var(--orange); }
+  .section-title.green { color: var(--green); }
+
+  /* ── CARDS ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(65,21,23,0.12);
+  }
+
+  .card-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 3px;
+    font-weight: 600;
+  }
+
+  .card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--brown);
+    margin-bottom: 3px;
+    line-height: 1.1;
+  }
+
+  .card p {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.45;
+    flex: 1;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tool-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .tool-btn:hover { transform: translateY(-1px); }
+  .tool-btn.primary { background: var(--orange); color: #fff; }
+  .tool-btn.primary:hover { background: var(--orange-light); }
+  .tool-btn.secondary {
+    background: var(--orange-dim);
+    color: var(--orange);
+    border: 1px solid rgba(255,89,0,0.2);
+  }
+  .tool-btn.secondary:hover { background: rgba(255,89,0,0.15); }
+
+  .card.highlight {
+    background: var(--orange-dim);
+    border-color: rgba(255,89,0,0.25);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--brown);
+    padding: 10px 20px;
+  }
+
+  .modal-header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+
+  .modal-btns {
+    display: flex;
+    gap: 6px;
+  }
+
+  .modal-btn {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    font-family: sans-serif;
+  }
+  .modal-btn:hover { background: rgba(255,89,0,0.6); }
+
+  .modal-iframe {
+    width: 100%;
+    height: calc(100% - 52px);
+    border: none;
+  }
+
+  .modal-fallback {
+    display: none;
+    height: calc(100% - 52px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--off-white);
+    gap: 24px;
+  }
+
+  .modal-fallback-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--brown);
+    letter-spacing: 3px;
+  }
+
+  .modal-fallback p {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 450px;
+    line-height: 1.7;
+  }
+
+  .modal-fallback a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    background: var(--orange);
+    color: #fff;
+    padding: 14px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 20px rgba(255,89,0,0.3);
+  }
+  .modal-fallback a:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  .hub-footer {
+    text-align: center;
+    padding: 20px 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .hub-footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1200px) {
+    .hub-header { padding: 24px 28px 16px; }
+    .hub-content { padding: 0 28px 32px; }
+    .card-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .card-grid { grid-template-columns: repeat(2, 1fr); }
+    .hub-header { padding: 20px 16px; }
+    .hub-content { padding: 0 16px 24px; }
+  }
+
+  @media (max-width: 480px) {
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hub-header">
+  <div class="page-tag">T-Mart Finance</div>
+  <div class="page-title">DASHBOARD <span>HUB</span></div>
+</header>
+
+<!-- CONTENT -->
+<main class="hub-content">
+
+  <!-- ── AUTOMATIONS ── -->
+  <div class="section reveal">
+    <div class="section-title orange">Automations</div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-tag">Store Ops</div>
+        <h4>TCN Tool</h4>
+        <p>Tax credit note processing &amp; supplier validation across all stores.</p>
+        <div class="btn-row">
+          <a href="https://sites.google.com/talabat.com/tcn-tool/home" data-modal data-modal-title="TCN Tool" class="tool-btn primary">Open</a>
+          <a href="https://script.google.com/a/macros/talabat.com/s/AKfycby157IUKyFHvjhyGhaIg9OyaUtJKmO4lcDH6nGfFYWUvqxoSfm7uuHh2zb7JK3I7N9q/exec" data-modal data-modal-title="GRV Dashboard" class="tool-btn secondary">GRV Dashboard</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Finance Ops</div>
+        <h4>Invoice Matching</h4>
+        <p>Auto-reads &amp; validates store PDF invoices against POS transactions.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Accounts Payable</div>
+        <h4>Supplier Recon</h4>
+        <p>Single tool for all supplier reconciliations. Auto-detects SOA formats, one-click matching.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Revenue</div>
+        <h4>Rebate SRM</h4>
+        <p>Supplier-level view with purchases, returns &amp; adjustments.</p>
+        <div class="btn-row">
+          <a href="https://tableau.deliveryhero.net/#/site/GlobalStandardReporting/views/SRM-Rebates/SupplierLevelRebates?=null,,,,,,,,,,,,&:iid=1&:redirect=auth" data-modal data-modal-title="Rebate SRM Dashboard" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Inventory</div>
+        <h4>Inventory Recon</h4>
+        <p>Reconciles MSD system vs inventory report &mdash; purchases, COGS &amp; shrinkage.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Payments</div>
+        <h4>H2H &amp; PEMO</h4>
+        <p>Host-to-Host payments from MSD. PEMO for cashless store operations.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Accounts Payable</div>
+        <h4>Supplier Deductions Tracking</h4>
+        <p>Automated weekly GRV reports &amp; pending deduction monitoring.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Revenue</div>
+        <h4>NMR Booking</h4>
+        <p>Same-month invoice booking for NMR &amp; supplier confirmations.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── DASHBOARDS ── -->
+  <div class="section reveal">
+    <div class="section-title green">Dashboards</div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-tag">Operations</div>
+        <h4>Shrinkage Dashboard</h4>
+        <p>Loss patterns &amp; outlier flagging across all stores.</p>
+        <div class="btn-row">
+          <a href="https://mostafazeyada-commits.github.io/supplier-dashboard/shrinkage.html" data-modal data-modal-title="Shrinkage Dashboard" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Purchase</div>
+        <h4>PO Dashboard</h4>
+        <p>Store-level purchasing trends &amp; daily movement.</p>
+        <div class="btn-row">
+          <a href="https://docs.google.com/spreadsheets/d/1LUKDIkGrRcz_hi40RdL8IaBchtg1BSxwlSASD8VjBEQ/edit?gid=1259438124#gid=1259438124" data-modal data-modal-title="PO Dashboard" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Finance Ops</div>
+        <h4>Invoice Match Performance</h4>
+        <p>Real-time matching rates &amp; discrepancy flags.</p>
+        <div class="btn-row">
+          <a href="https://neuraljerin.github.io/IM_Performance_Dashboard/" data-modal data-modal-title="Invoice Match Performance" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Accounts Payable</div>
+        <h4>Supplier Balances</h4>
+        <p>Outstanding liabilities &amp; payment priorities.</p>
+        <div class="btn-row">
+          <a href="https://mostafazeyada-commits.github.io/supplier-dashboard/index.html" data-modal data-modal-title="Supplier Balances" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Treasury</div>
+        <h4>Bank Transactions</h4>
+        <p>Cash inflow, outflow &amp; net across all accounts.</p>
+        <div class="btn-row">
+          <a href="https://mostafazeyada-commits.github.io/supplier-dashboard/bank.html" data-modal data-modal-title="Bank Transactions" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Leasing</div>
+        <h4>Lease Breakdown</h4>
+        <p>Monthly liability, cost breakdown &amp; contracts.</p>
+        <div class="btn-row">
+          <a href="https://mostafazeyada-commits.github.io/supplier-dashboard/lease.html" data-modal data-modal-title="Lease Breakdown" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Revenue</div>
+        <h4>NMR &amp; Rebate</h4>
+        <p>NMR/rebate trends &amp; month-on-month comparisons.</p>
+        <div class="btn-row">
+          <a href="https://docs.google.com/spreadsheets/d/1Px4ZE3rwxvHUIKZsnIhHb0XQJGwxPn-oirFRdePu_Xs/edit?gid=0#gid=0" data-modal data-modal-title="NMR &amp; Rebate" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Stock</div>
+        <h4>Stock Efficiency Dashboard</h4>
+        <p>SKU-level stock analysis with efficiency &amp; performance insights.</p>
+        <div class="btn-row">
+          <a href="https://ahmedelgazar.pythonanywhere.com/" data-modal data-modal-title="Stock Efficiency Dashboard" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">Expansion</div>
+        <h4>Store Count</h4>
+        <p>Live store locations &amp; expansion tracking.</p>
+      </div>
+
+      <div class="card highlight">
+        <div class="card-tag">Finance</div>
+        <h4>Executive Dashboard</h4>
+        <p>Financial statements &amp; KPI analysis.</p>
+        <div class="btn-row">
+          <a href="#" data-modal data-modal-title="Executive Dashboard" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="hub-footer">
+  <p>T-Mart Finance &middot; Dashboard Hub &middot; 2026</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="dashModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-header-title" id="modalTitle">Dashboard</div>
+      <div class="modal-btns">
+        <button class="modal-btn" id="modalFullscreen" title="Fullscreen">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+        </button>
+        <button class="modal-btn" id="modalNewTab" title="Open in new tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </button>
+        <button class="modal-btn" id="modalClose" title="Close">&times;</button>
+      </div>
+    </div>
+    <iframe class="modal-iframe" id="modalIframe" src="about:blank" loading="lazy"></iframe>
+    <div class="modal-fallback" id="modalFallback">
+      <div class="modal-fallback-title" id="fallbackTitle">Dashboard</div>
+      <p>This site restricts embedded viewing. Click below to open directly in a new tab.</p>
+      <a id="fallbackLink" href="#" target="_blank" rel="noopener">Open in New Tab &#8599;</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(function(el) { observer.observe(el); });
+
+  var overlay = document.getElementById('dashModal');
+  var iframe = document.getElementById('modalIframe');
+  var fallback = document.getElementById('modalFallback');
+  var fallbackTitle = document.getElementById('fallbackTitle');
+  var fallbackLink = document.getElementById('fallbackLink');
+  var title = document.getElementById('modalTitle');
+  var closeBtn = document.getElementById('modalClose');
+  var currentUrl = '';
+
+  function closeModal() {
+    overlay.classList.remove('active');
+    iframe.src = 'about:blank';
+    iframe.style.display = '';
+    fallback.style.display = 'none';
+  }
+
+  function showFallback() {
+    iframe.style.display = 'none';
+    fallbackTitle.textContent = title.textContent;
+    fallbackLink.href = currentUrl;
+    fallback.style.display = 'flex';
+  }
+
+  document.querySelectorAll('[data-modal]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      currentUrl = link.getAttribute('href');
+      if (currentUrl === '#') return;
+      var modalName = link.getAttribute('data-modal-title') || 'Dashboard';
+      title.textContent = modalName;
+      iframe.style.display = '';
+      fallback.style.display = 'none';
+      iframe.src = currentUrl;
+      overlay.classList.add('active');
+
+      var loaded = false;
+      iframe.onload = function() { loaded = true; };
+      setTimeout(function() {
+        if (!loaded) showFallback();
+        try {
+          var doc = iframe.contentDocument || iframe.contentWindow.document;
+          if (!doc || !doc.body || doc.body.innerHTML === '') showFallback();
+        } catch(err) {}
+      }, 3000);
+    });
+  });
+
+  var fullscreenBtn = document.getElementById('modalFullscreen');
+  var newTabBtn = document.getElementById('modalNewTab');
+
+  fullscreenBtn.addEventListener('click', function() {
+    var box = document.querySelector('.modal-box');
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      box.requestFullscreen().catch(function() {});
+    }
+  });
+
+  newTabBtn.addEventListener('click', function() {
+    if (currentUrl && currentUrl !== '#') window.open(currentUrl, '_blank');
+  });
+
+  iframe.addEventListener('error', showFallback);
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+  });
+})();
+</script>
+
+</body>
+</html>
