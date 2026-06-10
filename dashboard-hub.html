@@ -98,6 +98,26 @@
   }
   .section-title.orange { color: var(--orange); }
   .section-title.green { color: var(--green); }
+  .section-title.lime { color: #7a8a00; }
+
+  .card.wip {
+    border-left: 3px solid var(--lime);
+  }
+  .card-wip-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #5a6600;
+    background: rgba(207,255,0,0.25);
+    border: 1px solid rgba(207,255,0,0.5);
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
 
   /* ── CARDS ── */
   .card-grid {
@@ -115,6 +135,22 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     display: flex;
     flex-direction: column;
+    position: relative;
+  }
+
+  .card-owner {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 500;
   }
   .card:hover {
     transform: translateY(-3px);
@@ -354,6 +390,7 @@
     <div class="card-grid">
 
       <div class="card">
+        <span class="card-owner">Jerin</span>
         <div class="card-tag">Store Ops</div>
         <h4>TCN Tool</h4>
         <p>Tax credit note processing &amp; supplier validation across all stores.</p>
@@ -364,18 +401,21 @@
       </div>
 
       <div class="card">
+        <span class="card-owner">Kamel/Jerin</span>
         <div class="card-tag">Finance Ops</div>
         <h4>Invoice Matching</h4>
         <p>Auto-reads &amp; validates store PDF invoices against POS transactions.</p>
       </div>
 
       <div class="card">
+        <span class="card-owner">Jerin</span>
         <div class="card-tag">Accounts Payable</div>
         <h4>Supplier Recon</h4>
         <p>Single tool for all supplier reconciliations. Auto-detects SOA formats, one-click matching.</p>
       </div>
 
       <div class="card">
+        <span class="card-owner">Kamel</span>
         <div class="card-tag">Revenue</div>
         <h4>Rebate SRM</h4>
         <p>Supplier-level view with purchases, returns &amp; adjustments.</p>
@@ -385,24 +425,28 @@
       </div>
 
       <div class="card">
+        <span class="card-owner">Jerin</span>
         <div class="card-tag">Inventory</div>
-        <h4>Inventory Recon</h4>
+        <h4>Inventory Recon and Report</h4>
         <p>Reconciles MSD system vs inventory report &mdash; purchases, COGS &amp; shrinkage.</p>
       </div>
 
       <div class="card">
+        <span class="card-owner">TM</span>
         <div class="card-tag">Payments</div>
         <h4>H2H &amp; PEMO</h4>
         <p>Host-to-Host payments from MSD. PEMO for cashless store operations.</p>
       </div>
 
       <div class="card">
+        <span class="card-owner">Adel</span>
         <div class="card-tag">Accounts Payable</div>
         <h4>Supplier Deductions Tracking</h4>
         <p>Automated weekly GRV reports &amp; pending deduction monitoring.</p>
       </div>
 
       <div class="card">
+        <span class="card-owner">Jerin</span>
         <div class="card-tag">Revenue</div>
         <h4>NMR Booking</h4>
         <p>Same-month invoice booking for NMR &amp; supplier confirmations.</p>
@@ -417,6 +461,7 @@
     <div class="card-grid">
 
       <div class="card">
+        <span class="card-owner">Adel</span>
         <div class="card-tag">Operations</div>
         <h4>Shrinkage Dashboard</h4>
         <p>Loss patterns &amp; outlier flagging across all stores.</p>
@@ -426,6 +471,7 @@
       </div>
 
       <div class="card">
+        <span class="card-owner">Jery</span>
         <div class="card-tag">Purchase</div>
         <h4>PO Dashboard</h4>
         <p>Store-level purchasing trends &amp; daily movement.</p>
@@ -435,6 +481,7 @@
       </div>
 
       <div class="card">
+        <span class="card-owner">Jerin</span>
         <div class="card-tag">Finance Ops</div>
         <h4>Invoice Match Performance</h4>
         <p>Real-time matching rates &amp; discrepancy flags.</p>
@@ -444,6 +491,7 @@
       </div>
 
       <div class="card">
+        <span class="card-owner">Zeyada/Shabeeb</span>
         <div class="card-tag">Accounts Payable</div>
         <h4>Supplier Balances</h4>
         <p>Outstanding liabilities &amp; payment priorities.</p>
@@ -453,6 +501,7 @@
       </div>
 
       <div class="card">
+        <span class="card-owner">Zeyada/Shabeeb</span>
         <div class="card-tag">Treasury</div>
         <h4>Bank Transactions</h4>
         <p>Cash inflow, outflow &amp; net across all accounts.</p>
@@ -462,6 +511,7 @@
       </div>
 
       <div class="card">
+        <span class="card-owner">Zeyada</span>
         <div class="card-tag">Leasing</div>
         <h4>Lease Breakdown</h4>
         <p>Monthly liability, cost breakdown &amp; contracts.</p>
@@ -471,6 +521,7 @@
       </div>
 
       <div class="card">
+        <span class="card-owner">Adel/Jerin</span>
         <div class="card-tag">Revenue</div>
         <h4>NMR &amp; Rebate</h4>
         <p>NMR/rebate trends &amp; month-on-month comparisons.</p>
@@ -480,6 +531,7 @@
       </div>
 
       <div class="card">
+        <span class="card-owner">Gazar</span>
         <div class="card-tag">Stock</div>
         <h4>Stock Efficiency Dashboard</h4>
         <p>SKU-level stock analysis with efficiency &amp; performance insights.</p>
@@ -489,17 +541,87 @@
       </div>
 
       <div class="card">
+        <span class="card-owner">Cristel</span>
         <div class="card-tag">Expansion</div>
         <h4>Store Count</h4>
         <p>Live store locations &amp; expansion tracking.</p>
       </div>
 
       <div class="card highlight">
+        <span class="card-owner">Kamel</span>
         <div class="card-tag">Finance</div>
-        <h4>Executive Dashboard</h4>
+        <h4>FS Dashboard</h4>
         <p>Financial statements &amp; KPI analysis.</p>
         <div class="btn-row">
-          <a href="#" data-modal data-modal-title="Executive Dashboard" class="tool-btn primary">Open</a>
+          <a href="#" data-modal data-modal-title="FS Dashboard" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-owner">Cristel</span>
+        <div class="card-tag">Finance Ops</div>
+        <h4>Utilities</h4>
+        <p>Utility expense tracking &amp; management tools.</p>
+        <div class="btn-row">
+          <a href="https://script.google.com/a/macros/talabat.com/s/AKfycbxB73fGhZxrsZ0NUufCOhOvSCm6TF7vsHZuHfHSeqy60Os41AyUwPATTngSo3dtERUq/exec" data-modal data-modal-title="Utilities" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-owner">TM</span>
+        <div class="card-tag">Leasing</div>
+        <h4>Lease</h4>
+        <p>Lease management &amp; contract tracking.</p>
+        <div class="btn-row">
+          <a href="https://script.google.com/a/macros/talabat.com/s/AKfycbyIh_UmaO_3hpb-zQkRJYUSt2vBpq6LvXC0cIXbrEN2h5XzjlDbzyokuIGz5F7jTDfVZQ/exec" data-modal data-modal-title="Lease" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-owner">Cristel</span>
+        <div class="card-tag">Accounts Payable</div>
+        <h4>AP Tool</h4>
+        <p>Accounts payable processing &amp; payment management.</p>
+        <div class="btn-row">
+          <a href="https://script.google.com/a/macros/talabat.com/s/AKfycbyvxIAl1lN8KJqfSs5y350TkNMOLao3T9z_Kva74wRMulosGXEb97BBN4T61tnje4OH/exec" data-modal data-modal-title="AP Tool" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-owner">Cristel</span>
+        <div class="card-tag">Treasury</div>
+        <h4>Cheque Tracker</h4>
+        <p>Cheque issuance, clearance &amp; status monitoring.</p>
+        <div class="btn-row">
+          <a href="https://script.google.com/a/macros/talabat.com/s/AKfycbxGYP2hrN3DuqnoUtUtnAHSUXVYnXQ7G48xmq-mXMVHWYKFICBkIN7Ofp603AwLfLBu/exec" data-modal data-modal-title="Cheque Tracker" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-owner">Cristel</span>
+        <div class="card-tag">Operations</div>
+        <h4>OH Report (WIP)</h4>
+        <p>Overhead reporting &amp; cost analysis &mdash; work in progress.</p>
+        <div class="btn-row">
+          <a href="https://script.google.com/a/macros/talabat.com/s/AKfycbxY9pw2zdC0zGZKDvnCTr_XoBQkZyO_eQPmdTtNd_ZreAyDbGCLQxEIV4tRLoyUUz34/exec" data-modal data-modal-title="OH Report" class="tool-btn primary">Open</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── AUTOMATION FORGE ── -->
+  <div class="section reveal">
+    <div class="section-title lime">Automation Forge</div>
+    <div class="card-grid">
+
+      <div class="card wip">
+        <span class="card-owner">Jerin</span>
+        <div class="card-tag">Purchase</div>
+        <h4>PO Pending Tracker <span class="card-wip-badge">WIP</span></h4>
+        <p>Automatically sends pending PO reports to stores &amp; city heads via email.</p>
+        <div class="btn-row">
+          <a href="https://docs.google.com/spreadsheets/d/14Ifdduv5X3H27kBAwjt_jRznIMb1x4RShN6i662kceo/edit?gid=731403847#gid=731403847" data-modal data-modal-title="PO Pending Tracker" class="tool-btn primary">Open</a>
         </div>
       </div>
 
